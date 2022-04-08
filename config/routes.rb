@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :order_details, only:[:update]
-    resources :orders, only:[:update, :show]
+    resources :orders, only:[:update, :show, :index]
     resources :customers, except:[:destroy, :create]
     resources :genres, except:[:destroy, :new, :show]
     resources :items, except:[:destroy]
@@ -15,10 +15,11 @@ Rails.application.routes.draw do
     get 'orders/complete' => "orders#complete", as:"complete"
     resources :cart_items, except:[:new, :show, :edit]
     delete 'cart_items/empty' => "cart_items#empty", as:"empty"
-    resources :cart_items, only:[:update, :show, :edit]
+    resources :customers, only:[:update, :edit]
+    get 'customers/my_page' => "customers#my_page", as:"my_page"
     get 'customers/unsubscribe' => "customers#unsubscribe", as:"unsubscribe"
     patch 'customers/withdraw' => "customers#withdraw", as:"withdraw"
-    resources :cart_items, only:[:index, :show]
+    resources :items, only:[:index, :show]
     root to:'homes#top'
     get 'homes/about' => "homes#about", as:"about"
   end
