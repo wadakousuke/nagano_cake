@@ -1,5 +1,6 @@
 class Public::CartItemsController < ApplicationController
   def index
+    @cart_items = CartItem.all
   end
 
   def update
@@ -12,9 +13,8 @@ class Public::CartItemsController < ApplicationController
   end
 
   def create
-    @cart_items = Item.new(cart_item_params)
-    binding.pry
-    @cart_items.save
+    @cart_item = Item.new(cart_item_params)
+    @cart_item.save
     redirect_to cart_items_path
   end
 private
