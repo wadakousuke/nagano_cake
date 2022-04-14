@@ -1,2 +1,40 @@
-<h1>Public::Addresses#index</h1>
-<p>Find me in app/views/public/addresses/index.html.erb</p>
+<h1>配送先登録/一覧</h1>
+
+<%= form_with model: @items, url: admin_items_path, method: :post do |f| %>
+<div>
+<label>商品画像</label>
+<span><%= f.file_field :item_image,accept: "image/*" %></span>
+</div>
+
+<div>
+<label>商品名</label>
+<span><%= f.text_field :name %></span>
+</div>
+
+<div>
+<label>商品説明</label>
+<span><%= f.text_area :introduction %></span>
+</div>
+
+<div>
+<label>ジャンル</label>
+<span> <%= f.collection_select :genre_id, Genre.all, :id, :name %></span>
+</div>
+
+<div>
+<label>税抜き価格</label>
+<span><%= f.text_field :price %></span>
+<span>円</span>
+</div>
+
+<div>
+<label>販売ステータス</label>
+<span><%= f.radio_button :is_active, :TRUE, checked: true %></span>
+<%= f.label :is_active, "販売中" %>
+<span><%= f.radio_button :is_active, :FALSE %></span>
+<%= f.label :is_active, "販売停止中" %>
+</div>
+
+<%= f.submit "新規登録" %>
+<% end %>
+
