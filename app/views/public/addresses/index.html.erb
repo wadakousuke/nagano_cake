@@ -1,40 +1,42 @@
 <h1>配送先登録/一覧</h1>
 
-<%= form_with model: @items, url: admin_items_path, method: :post do |f| %>
-<div>
-<label>商品画像</label>
-<span><%= f.file_field :item_image,accept: "image/*" %></span>
-</div>
 
-<div>
-<label>商品名</label>
-<span><%= f.text_field :name %></span>
-</div>
+<table class="table table-hover table-inverse">
 
-<div>
-<label>商品説明</label>
-<span><%= f.text_area :introduction %></span>
-</div>
+          <%= form_with model: @address, url: addresses_path, method: :post do |f| %>
+        <tr>
+          <td>郵便番号（ハイフンなし）</td>
+　　　　　<td><%= f.text_field :postal_code %></td>
+        </tr>
+        <tr>
+          <td>住所</td>
+          <td><%= f.text_field :address %></td>
+        </tr>
+        <tr>
+          <td>宛先</td>
+          <td><%= f.text_field :name %></td>
+          <td> <%= f.submit "新規登録" %> </td>
+        </tr>
+        <% end %>
+      </tbody>
+</table>
 
-<div>
-<label>ジャンル</label>
-<span> <%= f.collection_select :genre_id, Genre.all, :id, :name %></span>
-</div>
-
-<div>
-<label>税抜き価格</label>
-<span><%= f.text_field :price %></span>
-<span>円</span>
-</div>
-
-<div>
-<label>販売ステータス</label>
-<span><%= f.radio_button :is_active, :TRUE, checked: true %></span>
-<%= f.label :is_active, "販売中" %>
-<span><%= f.radio_button :is_active, :FALSE %></span>
-<%= f.label :is_active, "販売停止中" %>
-</div>
-
-<%= f.submit "新規登録" %>
-<% end %>
-
+<table class="table table-hover table-inverse">
+      <thead>
+        <tr>
+         <th>郵便番号（ハイフンなし）</th>
+         <th>住所</th>
+         <th>宛先</th>
+        </tr>
+      </thead>
+      <tbody>
+       <% @addresses.each do |addresses| %>
+        <tr>
+          <td><%= addresses.postal_code %></td>
+          <td><%= addresses.address %></td>
+          <td><%= addresses.name %></td>
+          <td><%= link_to "編集する", edit_address_path(addresses.id) %><%= link_to "削除する", address_path(addresses.id) , method: :delete %></td>
+        </tr>
+       <% end %>
+      </tbody>
+</table>
