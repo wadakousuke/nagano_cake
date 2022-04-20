@@ -1,0 +1,29 @@
+
+[1mFrom:[0m /home/ec2-user/environment/Rails/nagano_cake/app/controllers/public/orders_controller.rb:25 Public::OrdersController#confirm:
+
+     [1;34m7[0m: [32mdef[0m [1;34mconfirm[0m
+     [1;34m8[0m:    @order = [1;34;4mOrder[0m.new
+     [1;34m9[0m:    @customer = [1;34;4mCustomer[0m.find(current_customer.id)
+    [1;34m10[0m: 
+    [1;34m11[0m:    [32mif[0m params[[33m:select_address[0m] == [31m[1;31m"[0m[31m0[1;31m"[0m[31m[0m
+    [1;34m12[0m:     @order.delivery_postal_code = current_customer.postal_code
+    [1;34m13[0m:     @order.delivery_postal_address = current_customer.address
+    [1;34m14[0m:     @order.delivery_postal_name = current_customer.first_name + current_customer.last_name
+    [1;34m15[0m: 
+    [1;34m16[0m:    [32melsif[0m params[[33m:select_address[0m] == [31m[1;31m"[0m[31m1[1;31m"[0m[31m[0m
+    [1;34m17[0m:     @address = [1;34;4mAddress[0m.find(params[[33m:order[0m][[33m:address_id[0m])
+    [1;34m18[0m:     @order.delivery_postal_code = @address.postal_code
+    [1;34m19[0m:     @order.delivery_postal_address = @address.address
+    [1;34m20[0m:     @order.delivery_postal_name = @address.name
+    [1;34m21[0m:    [32melsif[0m params[[33m:select_address[0m] == [31m[1;31m"[0m[31m2[1;31m"[0m[31m[0m
+    [1;34m22[0m:      @order.delivery_postal_code = @order.delivery_postal_code
+    [1;34m23[0m:      @order.delivery_postal_address = @order.delivery_postal_address
+    [1;34m24[0m:      @order.delivery_postal_name = @order.delivery_postal_name
+ => [1;34m25[0m:      binding.pry
+    [1;34m26[0m: 
+    [1;34m27[0m:    [32melse[0m [1;34m# どのラジオボタンも選択されていないときは同じページに返す[0m
+    [1;34m28[0m:       flash[[33m:danger[0m] = [31m[1;31m"[0m[31m必要情報を入力してください[1;31m"[0m[31m[0m
+    [1;34m29[0m:       redirect_back([35mfallback_location[0m: root_path)
+    [1;34m30[0m:    [32mend[0m
+    [1;34m31[0m: [32mend[0m
+
