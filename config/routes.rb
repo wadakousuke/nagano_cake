@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
   scope module: :public do
     resources :addresses, except:[:new, :show]
-    resources :orders, except:[:destroy, :update, :edit]
-    post 'orders/confirm' => "orders#confirm", as:"confirm"
-    get 'orders/complete' => "orders#complete", as:"complete"
+    resources :orders, except:[:destroy, :update, :edit ]
+    post 'order/confirm' => "orders#confirm", as:"confirm"
+    get 'order/complete' => "orders#complete"
     resources :cart_items, except:[:new, :show, :edit]
     delete 'cart_items/empty' => "cart_items#empty", as:"empty"
     resources :customers, only:[:update, :edit]

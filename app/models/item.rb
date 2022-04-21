@@ -3,5 +3,9 @@ class Item < ApplicationRecord
   belongs_to :genre
   belongs_to :order_detail
 
+  def with_tax_price
+    (price * 1.1).floor
+  end
+
 
 end

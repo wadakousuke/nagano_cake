@@ -18,33 +18,63 @@ class Public::OrdersController < ApplicationController
       @order.delivery_postal_code = @address.postal_code
       @order.delivery_postal_address = @address.address
       @order.delivery_postal_name = @address.name
-      binding.pry
     elsif params[:select_address] == "2"
-      binding.pry
+
     end
 
+     @cart_items = CartItem.all
+     @total = 0
+     @order.shipping_cost = 800
+     @order.billing_information = @order.shipping_cost + @total
 
+  end
+
+
+
+  def create
+    @order = Order.new(order_params)
+    @order.save
+     @order.customer.cart_items.each do |i|
+        @order_detail = OrderDetail.new(order_detail_params)
+        @order_detail.order_id = @order.id
+        @order_detail.making_status = 0
+        @order_detail.item_id = i.item_id
+        @order_detail.amount = (i.amount).to_i
+        @order_detail.price_including_tax = (i.item.price * 1.1).to_i
+        @order_detail .save
+        current_customer.cart_items.destroy_all
+        redirect_to  controller: :orders, action: :complete
+
+      end
 
   end
 
   def complete
   end
 
-  def create
-  end
-
   def index
+    @orders = current_customer.orders.all
   end
 
 
   def show
+    @order = Order.find(params[:id])
+    @item_orders = @order.item_orders.all
+    # 下記３行は商品合計を出すため
+    @sum = 0
+    @subtotals = @item_orders.map { |item_order| item_order.price * item_order.amount }
+    @sum = @subtotals.sum
   end
 
 
 private
 
   def order_params
-     params.require(:order).permit(:delivery_postal_code, :delivery_postal_address, :delivery_postal_name,:payment_method)
+     params.require(:order).permit(:customer_id,:delivery_postal_code, :delivery_postal_address, :delivery_postal_name,:payment_method, :shipping_cost, :billing_information)
+  end
+
+  def order_detail_params
+    params.permit(:item_id,:order_id, :price_including_tax, :amount,:making_status)
   end
 
 end
