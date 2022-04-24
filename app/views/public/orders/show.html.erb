@@ -1,0 +1,66 @@
+<h1>注文履歴詳細</h1>
+
+<h2>注文情報</h2>
+<table class="table table-hover table-inverse">
+      <tbody>
+        <tr>
+          <td>注文日</td>
+          <td><%= @order.created_at %></td>
+        </tr>
+        <tr>
+          <td>配送先</td>
+          <td><%= @order.delivery_postal_code %></br><%= @order.delivery_postal_address %></br><%= @order.delivery_postal_name %></td>
+        </tr>
+        <tr>
+          <td>支払方法</td>
+          <td><%= @order.payment_method_i18n %></td>
+        </tr>
+        <tr>
+          <td>ステータス</td>
+          <td><%= @order.status_i18n  %></td>
+        </tr>
+      </tbody>
+</table>
+
+<h2>請求情報</h2>
+<table class="table table-hover table-inverse">
+      <tbody>
+        <tr>
+          <td>注文日</td>
+          <td><%= @order.created_at %></td>
+        </tr>
+        <tr>
+          <td>配送料</td>
+          <td><%= @order.shipping_cost %></td>
+        </tr>
+        <tr>
+          <td>ご請求額</td>
+          <td><%= @order.billing_information %></td>
+        </tr>
+        <tr>
+          <td>ステータス</td>
+          <td><%= @order.status %></td>
+        </tr>
+      </tbody>
+</table>
+
+<h2>注文内容</h2>
+ <div class="col-xs-8"  style="margin-top: 50px;">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="table-head" style="background-color:#F5F5F5;">
+              <th scope="col">商品名</th>
+              <th scope="col">単価（税込）</th>
+              <th scope="col">数量</th>
+              <th scope="col">小計</th>
+            </tr>
+          </thead>
+         <tbody>
+              <tr>
+                <td><%= @order_detail.amount %></td>
+
+                <td><%= @order_detail.order_id%></td>
+                <td><%= @order_detail.amount %></td>
+
+              </tr>
+          </tbody>
