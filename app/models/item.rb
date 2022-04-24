@@ -1,7 +1,10 @@
 class Item < ApplicationRecord
   has_one_attached :item_image
   belongs_to :genre
-  belongs_to :order_detail
+  has_many :orders, through: :order_details
+  has_many :cart_items, dependent: :destroy
+  has_many :customers, through: :cart_items
+  has_many :order_details, dependent: :destroy
 
   def with_tax_price
     (price * 1.1).floor

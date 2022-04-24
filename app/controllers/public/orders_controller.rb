@@ -59,10 +59,10 @@ class Public::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @order_detail = OrderDetail.find(@order.id)
-    @oreder_items = Item.find(@order_detail.item_id)
-
+    @order_details = @order.order_details.all
     # 下記３行は商品合計を出すため
+    @sum = 0
+
 
   end
 
