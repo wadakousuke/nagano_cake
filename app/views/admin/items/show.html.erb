@@ -1,33 +1,44 @@
-<h1>商品詳細</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+     <h1>商品詳細</h1>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-3"><%= image_tag @item.item_image, style:"height:200px; width:200px" %></div>
+    <div class="col-9">
+          <table class="table ml-5" style="width:100%;">
+            <tbody>
+              <tr>
+                <th>商品名</th>
+                <th><%= @item.name %></th>
+              </tr>
+              <tr>
+                <th>商品説明</th>
+                <th><%= @item.introduction %></th>
+              </tr>
+              <tr>
+                <th>ジャンル</th>
+                <th><%= @item.genre.name %></th>
+              </tr>
+              <tr>
+                <th>税込価格<br/>(税抜き価格)</th>
+                <th><%= (@item.price*1.1).to_i.to_s(:delimited) %>(<%= @item.price.to_i.to_s(:delimited) %>)円</th>
+              </tr>
+              <tr>
+                <th>販売ステータス</th>
+                <th>
+                    <% if @item.is_active == TRUE%>
+                    <span class="text-success font-weight-bold">販売中</span>
+    　　              <% else %>
+                     <span class="text-secondary font-weight-bold">販売停止中</span>
+                     <% end %>
+                </th>
+              </tr>
+            </tbody>
+          </table>
 
-
-  <div>
-    <span><%= image_tag @item.item_image %></span>
+      </div>
+    <div class="mx-auto" style="width: 200px;"><%= link_to "編集する", edit_admin_item_path(@item.id), class:"btn-lg btn-success"%></div>
   </div>
-  <div>
-    <label>商品名</label>
-    <span><%= @item.name %></span>
-  </div>
-  <div>
-    <label>商品説明</label>
-    <span><%= @item.introduction %></span>
-  </div>
-  <div>
-    <label>ジャンル</label>
-    <span><%= @item.genre.name %></span>
-  </div>
-  <div>
-    <label>税込価格<br/>(税抜き価格)</label>
-    <span><%= @item.price %></span>
-  </div>
-  <div>
-    <label>販売ステータス</label>
-    <span>
-       <% if @item.is_active == TRUE%>
-         <span>販売中</span>
-    　　<% else %>
-         <span>販売停止中</span>
-       <% end %>
-    </span>
-<%= link_to "編集する", edit_admin_item_path(@item.id) %>
-
+</div>

@@ -1,5 +1,40 @@
-<div>ようこそ、ながのCAKEへ！<br/>このサイトは、ケーキ販売のECサイトとなります。<br/>会員でない方も商品の閲覧はできますが、<br/>購入には会員登録が必要になります。</div>
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <%= render 'layouts/genre_info', genres: @genres %>
+    </div>
 
-<h1>新着商品</h1>
+    <div class="col-9 mx-auto">
+      <div class="mt-5">
+        <p class="text-center">ようこそ、ながのCAKEへ！<br/>このサイトは、ケーキ販売のECサイトとなります。<br/>会員でない方も商品の閲覧はできますが、<br/>購入には会員登録が必要になります。</p>
+      </div>
 
-<%= link_to "全ての商品を見る＞", items_path %>
+  <h1>新着商品</h1>
+
+
+      <div class="d-flex">
+        <% @items.each do |item| %>
+        <div>
+          <div>
+            <%= link_to item_path(item.id) do  %>
+              <%= image_tag item.item_image, style:"height:200px; width:200px" %>
+            <% end %>
+          </div>
+          <div>
+            <%= item.name %>
+          </div>
+          <div>
+            <%= (item.price*1.1).to_i.to_s(:delimited) %>円
+          </div>
+          </div>
+              <% end %>
+        </div>
+
+  <%= link_to "全ての商品を見る＞", items_path,class:"mt-5 d-flex justify-content-end" %>
+ </div>
+  </div>
+
+
+
+</div>
+

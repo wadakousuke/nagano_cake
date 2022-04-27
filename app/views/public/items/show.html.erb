@@ -1,21 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <%= render 'layouts/genre_info', genres: @genres %>
+    </div>
+    <div class="col-4 mt-5"><%= image_tag @item.item_image, style:"height:400px; width:400px" %></div>
+    <div class="col-6 mt-5">
+          <table class="table ml-5 table-borderless" style="width:100%;">
+            <tbody>
+              <tr>
+                <th><%= @item.name %></th>
+              </tr>
+              <tr>
+                <th><%= @item.introduction %></th>
+              </tr>
+              <tr>
+                <th><%= (@item.price*1.1).to_i.to_s(:delimited) %>(税込)</th>
+              </tr>
+              <tr>
+                <th>
+                 <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+                 <%= f.hidden_field :item_id, :value => @item.id %>
+                 <%= f.select :amount, *[1..20], {include_blank: '個数選択'}%>
+                 <%= f.submit 'カートに入れる', class:"btn-lg btn-success ml-5" %>
+                 <% end %>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+  </div>
+</div>
 
-  <div>
-    <span><%= image_tag @item.item_image %></span>
-  </div>
-  <div>
-    <label>商品名</label>
-    <span><%= @item.name %></span>
-  </div>
-  <div>
-    <label>商品説明</label>
-    <span><%= @item.introduction %></span>
-  </div>
-  <div>
-    <label>税込価格<br/>(税抜き価格)</label>
-    <span><%= @item.price %></span>
-  </div>
- <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
- <%= f.hidden_field :item_id, :value => @item.id %>
- <%= f.select :amount, *[1..20], {include_blank: '個数選択'}%>
-  <%= f.submit 'カートに入れる' %>
- <% end %>

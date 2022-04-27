@@ -12,7 +12,7 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @customer.update(customer_params)
     redirect_to my_page_path
-   end
+  end
 
   def unsubscribe
   end

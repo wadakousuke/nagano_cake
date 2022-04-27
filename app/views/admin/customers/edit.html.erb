@@ -1,9 +1,9 @@
-<h1><%= @customer.first_name %><%= @customer.last_name %>さんの会員情報編集</h1>
+<h1 class= "ml-5"><%= @customer.first_name %><%= @customer.last_name %>さんの会員情報編集</h1>
 
 <%= form_with model: @customer, url: admin_customer_path, method: :patch do |f| %>
 
 
-<table class="table">
+<table class="table ml-5" style="width:60%;">
   <tbody>
     <tr>
       <th>会員ID</th>
@@ -43,5 +43,5 @@
   </tbody>
 </table>
 
- <%= f.submit "変更を保存" %>
+ <%= f.submit "変更を保存",class: "btn btn-success ml-5"%>
 <% end %>

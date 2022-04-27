@@ -43,7 +43,7 @@ class Public::OrdersController < ApplicationController
         @order_detail.price_including_tax = (i.item.price * 1.1).to_i
         @order_detail .save
         current_customer.cart_items.destroy_all
-        redirect_to  controller: :orders, action: :complete
+        redirect_to  order_complete_path
 
       end
 

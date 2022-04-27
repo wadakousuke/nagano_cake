@@ -1,19 +1,14 @@
 class Public::CartItemsController < ApplicationController
    def index
-    @cart_items = CartItem.all
     @total = 0
-
-
+    @cart_items = CartItem.all
    end
-
-
 
   def new
     @cart_item = CartItem.new(cart_item_params)
   end
 
   def create
-
     @cart_items = CartItem.new(cart_item_params)
     @cart_items.customer_id = current_customer.id
 
@@ -27,6 +22,10 @@ class Public::CartItemsController < ApplicationController
   end
 
   def update
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.update(cart_item_params)
+    redirect_to cart_items_path
+
   end
 
   def destroy
@@ -35,7 +34,10 @@ class Public::CartItemsController < ApplicationController
     redirect_to cart_items_path
   end
 
-  def empty
+  def all
+    cart_item = CartItem.all
+    cart_item.destroy_all
+    redirect_to cart_items_path
   end
 
 private

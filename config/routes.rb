@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     post 'order/confirm' => "orders#confirm", as:"confirm"
     get 'order/complete' => "orders#complete"
     resources :cart_items, except:[:new, :show, :edit]
-    delete 'cart_items/empty' => "cart_items#empty", as:"empty"
+    delete 'cart_items/all' => "cart_items#all", as:"all"
     resources :customers, only:[:update, :edit]
     get 'customers/my_page' => "customers#my_page", as:"my_page"
     get 'customers/unsubscribe' => "customers#unsubscribe", as:"unsubscribe"
