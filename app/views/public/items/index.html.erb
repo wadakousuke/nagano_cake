@@ -4,7 +4,8 @@
       <%= render 'layouts/genre_info', genres: @genres %>
     </div>
 　　<div class="col-9">
-　　  <h1>商品一覧</h1>
+　　  <h1>商品一覧(全<%= @items.count%>件)</h1>
+
       <div class="d-flex flex-wrap ">
         <% @items.each do |item| %>
         <div class="ml-1">

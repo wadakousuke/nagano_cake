@@ -5,7 +5,7 @@
     </div>
     <div class="col-lg-7 d-flex p-2 justify-content-end">
      <%= link_to "カートを空にする" , all_url, method: :delete ,class:"btn btn-danger"%>
-     
+
     </div>
    </div>
    <div class="row">
@@ -24,8 +24,8 @@
           <tr>
             <td><%= image_tag cart_item.item.item_image, style:"height:80px; width:80px",class:"mr-3" %><%= cart_item.item.name %></td>
             <td><%= cart_item.item.with_tax_price %></td>
-            <td> <%= form_with model: cart_item, url: cart_item_path(cart_item), method: :patch do |f| %>
-                 <%= f.select :amount, *[1..20]%>
+            <td> <%= form_with model: @cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
+                 <%= f.select :amount, *[1..20] %>
                  <%= f.submit '変更', class:"btn-lg btn-success ml-5" %>
                  <% end %>
             </td>
@@ -53,5 +53,10 @@
        </table>
      </div>
 </div>
-  <%= link_to "情報入力に進む" ,new_order_path,class:"btn btn-success mx-auto" %>
+	<% if @cart_items.count == 0  %>
+
+		<% else %>
+			  <%= link_to "情報入力に進む" ,new_order_path,class:"btn btn-success mx-auto" %>
+		<% end %>
+
 
