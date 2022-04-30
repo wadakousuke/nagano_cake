@@ -2,13 +2,13 @@
   <div class="row">
     <div class="col-4">
        <h1>注文情報入力</h1>
+<%= form_with model: Order, url: confirm_path, method: :post do |f| %>
     </div>
   </div>
   <div class="row">
     <h2>支払方法</h2>
   </div>
   <div class="row">
-    <%= form_with model: Order, url: confirm_path, method: :post do |f| %>
     <div class="ml-4">
       <%= f.radio_button :payment_method, Order.payment_methods.key(0), checked: true %>
       <%= f.label :payment_method, Order.payment_methods_i18n[:credit_card] %>
@@ -32,7 +32,7 @@
    <div class="ml-4">
       <%= radio_button_tag("select_address" ,"1" )%>
       <%= f.label :select_address, "登録済み住所から選択" %>
-     <div class="ml-4"> <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display),style:"width:400px;"%></div>
+     <div class="ml-4"> <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display)%></div>
     </div>
   </div>
   <div class="row">
@@ -58,7 +58,7 @@
   </div>
   <div class="row">
     <%= f.submit  "確認画面へ進む", class:"btn btn-primary mx-auto"%>
-    <% end %>
+<% end %>
   </div>
 </div>
 

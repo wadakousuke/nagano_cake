@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :customers, only:[:update, :edit]
     get 'customers/my_page' => "customers#my_page", as:"my_page"
     get 'customers/unsubscribe' => "customers#unsubscribe", as:"unsubscribe"
-    patch 'customers/withdraw' => "customers#withdraw", as:"withdraw"
+    patch 'customers/withdraw/withdraw' => "customers#withdraw#withdraw", as:"withdraw"
     resources :items, only:[:index, :show]
     root to:'homes#top'
     get 'homes/about' => "homes#about", as:"about"

@@ -1,4 +1,5 @@
 class Public::CustomersController < ApplicationController
+   before_action :authenticate_customer!
   def my_page
 
 
@@ -18,13 +19,15 @@ class Public::CustomersController < ApplicationController
   end
 
   def withdraw
-    @customer = Customer.find(params[current_customer.id])
-    @customer.is_deleted = ture
+    @customer = Customer.find(current_customer.id)
+    @customer.is_deleted = true
     @customer.update(customer_params)
+    reset_session
+    redirect_to root_path
   end
 
   private
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :postal_code, :telephone_number, :address, :is_deleted, :email)
+    params.permit(:first_name, :last_name, :first_name_kana, :last_name_kana, :postal_code, :telephone_number, :address, :is_deleted, :email)
   end
 end

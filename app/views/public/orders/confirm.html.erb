@@ -1,53 +1,33 @@
 <div class="container">
   <div class="row">
-    
+    <h2>注文情報確認</h2>
   </div>
-  
-</div>
-
-<div class="row login-row">
-      <h2>注文情報確認</h2>
-      <div class="col-xs-8"  style="margin-top: 50px;">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="table-head" style="background-color:#F5F5F5;">
-              <th scope="col">商品名</th>
-              <th scope="col">単価（税込）</th>
-              <th scope="col">数量</th>
-              <th scope="col">小計</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @cart_items.each do |cart_items| %>
-              <tr>
-                <td><%= cart_items.item.name %></td>
-                <td><%= (cart_items.item.price * 1.1).to_i%></td>
-                <td><%= cart_items.amount %></td>
-                <td><%= (cart_items.item.price  * 1.1 * cart_items.amount).to_i  %>
+  <div class="row">
+    <div class="col-lg-8">
+      <table class="table table-hover table-inverse table-bordered">
+        <thead>
+          <tr>
+           <th>商品名</th>
+           <th>単価（税込）</th>
+           <th>数量</th>
+           <th>小計</th>
+          </tr>
+        </thead>
+        <tbody>
+         <% @cart_items.each do |cart_items| %>
+          <tr>
+            <td><%= image_tag cart_items.item.item_image, style:"height:80px; width:80px",class:"mr-3" %><%= cart_items.item.name %></td>
+            <td><%= (cart_items.item.price * 1.1).to_i%></td>
+            <td><%= cart_items.amount %></td>
+            <td><%= (cart_items.item.price  * 1.1 * cart_items.amount).to_i  %>
                 <% @total = @total+  (cart_items.item.price  * 1.1 * cart_items.amount).to_i %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <table class="table" style="margin-top: 50px;">
-          <tbody>
-            <tr>
-              <th scope="row">支払い方法</th>
-              <td><%= @order.payment_method %></td>
-            </tr>
-            <tr>
-              <th scope="row">お届け先</th>
-              <td>
-                <p><%= @order.delivery_postal_code %>&emsp;<%= @order.delivery_postal_address %></p>
-                <p><%= @order.delivery_postal_name %></p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="col-xs-4" style="margin-top: 50px;">
+            </td>
+          </tr>
+         <% end %>
+        </tbody>
+     </table>
+    </div>
+     <div class="col-lg-4" >
         <table class="table table-bordered">
           <tbody>
             <tr>
@@ -66,9 +46,28 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-offset-5">
+   </div>
+   <div class="row">
+     <div class="col-lg-8">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <th >支払い方法</th>
+              <td><%= @order.payment_method_i18n %></td>
+            </tr>
+            <tr>
+              <th scope="row">お届け先</th>
+              <td>
+                <p><%= @order.delivery_postal_code %>&emsp;<%= @order.delivery_postal_address %></p>
+                <p><%= @order.delivery_postal_name %></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+   </div>
+   <div class="row">
+     <div class="col-12 mx-auto">
       <%= form_with(model: Order, url: orders_path, method: :post) do |f| %>
               <%= f.hidden_field :customer_id, :value => current_customer.id %>
               <%= f.hidden_field :delivery_postal_address, :value  => @order.delivery_postal_address %>
@@ -77,7 +76,8 @@
               <%= f.hidden_field :payment_method, :value  => @order.payment_method %>
               <%= f.hidden_field :shipping_cost, :value  => @order.shipping_cost %>
               <%= f.hidden_field :billing_information, :value  => @order.shipping_cost + @total %>
-              <%= f.submit "注文を確定する",class:"btn btn-primary col-xs-12" %>
+              <%= f.submit "注文を確定する",class:"btn btn-success d-flex mx-auto" %>
         <% end %>
-      </div>
-    </div>
+     </div>
+   </div>
+</div>
