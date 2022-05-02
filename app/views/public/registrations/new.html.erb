@@ -1,8 +1,8 @@
-<div class="ccontainer">
+<div class="ccontainer mx-auto">
   <div class="row ml-5 mt-5">
     <h1>会員情報登録</h1>
   </div>
-  <div class="row">
+  <div class="row mx-auto">
     <%= form_for(resource, as: resource_name, url: customer_registration_path, method: :post) do |f| %>
     <table class="table ml-5" style="width:100%;">
       <tbody>
@@ -65,7 +65,6 @@
     <div class="row ml-5 mt-3">
      <%= link_to "こちら", new_customer_session_path %>
      <span> からログインしてください。</span>
-     <p id="notice"><%= notice %></p>
     </div>
 
 </div>

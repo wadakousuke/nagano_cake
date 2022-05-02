@@ -1,69 +1,77 @@
-<h1>注文履歴詳細</h1>
-
-<h2>注文情報</h2>
-<table class="table table-hover table-inverse">
-      <tbody>
-        <tr>
-          <td>注文日</td>
-          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
-        </tr>
-        <tr>
-          <td>配送先</td>
-          <td><%= @order.delivery_postal_code %></br><%= @order.delivery_postal_address %></br><%= @order.delivery_postal_name %></td>
-        </tr>
-        <tr>
-          <td>支払方法</td>
-          <td><%= @order.payment_method_i18n %></td>
-        </tr>
-        <tr>
-          <td>ステータス</td>
-          <td><%= @order.status_i18n  %><%= link_to "更新", admin_order_path, method: :patch %></td>
-        </tr>
-      </tbody>
-</table>
-
-<h2>請求情報</h2>
-<table class="table table-hover table-inverse">
-      <tbody>
-        <tr>
-          <td>注文日</td>
-          <td><%= @order.created_at %></td>
-        </tr>
-        <tr>
-          <td>配送料</td>
-          <td><%= @order.shipping_cost %></td>
-        </tr>
-        <tr>
-          <td>ご請求額</td>
-          <td><%= @order.billing_information %></td>
-        </tr>
-        <tr>
-          <td>ステータス</td>
-          <td><%= @order.status_i18n %></td>
-        </tr>
-      </tbody>
-</table>
-
-<h2>注文内容</h2>
-  <table class="table table-bordered">
-          <thead>
-            <tr class="table-head" style="background-color:#F5F5F5;">
-              <th scope="col">商品</th>
-              <th scope="col">単価（税込）</th>
-              <th scope="col">個数</th>
-              <th scope="col">小計</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @order_details.each do |order_detail| %>
+<div class="container">
+  <div class="row">
+    <h1>注文履歴詳細</h1>
+  </div>
+  <div class="row mt-5">
+    <div class="col-8">
+      <h2>注文情報</h2>
+        <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>注文日</td>
+                  <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+                </tr>
+                <tr>
+                  <td>配送先</td>
+                  <td><%= @order.delivery_postal_code %></br><%= @order.delivery_postal_address %></br><%= @order.delivery_postal_name %></td>
+                </tr>
+                <tr>
+                  <td>支払方法</td>
+                  <td><%= @order.payment_method_i18n %></td>
+                </tr>
+                <tr>
+                  <td>ステータス</td>
+                  <td><%= @order.status_i18n  %></td>
+                </tr>
+              </tbody>
+        </table>
+    </div>
+    <div class="col-lg-4" >
+      <h2>請求情報</h2>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="active">送料</td>
+            <td><%= @order.shipping_cost%></td>
+          </tr>
+          <tr>
+            <td class="active">商品合計</td>
+            <% @order_details.each do |order_item| %>
+            <% @total = @total.to_i + order_item.price_including_tax.to_i* order_item.amount.to_i%>
+             <% end %>
+            <th><%= @total %></th>
+          </tr>
+          <tr>
+            <td class="active">請求合計</td>
+            <td><%= @order.shipping_cost.to_i + @total.to_i%></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-5">
+     <h2>注文内容</h2>
+    <div class="col-lg-12">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+           <th>商品</th>
+           <th>単価（税込）</th>
+           <th>個数</th>
+           <th>小計</th>
+          </tr>
+        </thead>
+        <tbody>
+         <% @order_details.each do |order_detail| %>
                 <tr>
                   <td><%= Item.find(order_detail.item_id).name %></td>
-                  <td><%= Item.find(order_detail.item_id).price %></td>
+                  <td><%= order_detail.price_including_tax %></td>
                   <td><%= order_detail.amount %></td>
-                  <td><%= order_detail.amount * Item.find(order_detail.item_id).price %></td>
-                  <td><%= order_detail.making_status_i18n %><%= link_to "更新", admin_order_detail_path, method: :patch %></td>
+                  <td><%= order_detail.amount * order_detail.price_including_tax.to_i %></td>
                 </tr>
             <% end %>
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+     </table>
+    </div>
+</div>
+

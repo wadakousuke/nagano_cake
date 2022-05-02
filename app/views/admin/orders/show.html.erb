@@ -1,6 +1,7 @@
-<h1>注文履歴詳細</h1>
+<div class="container" >
+<h1 class="mt-5">注文履歴詳細</h1>
 
-<table class="table table-hover table-inverse ml-5" style="width:40%;">
+<table class="table table-hover table-inverse ml-5 mt-5" style="width:40%;">
       <tbody>
         <tr>
           <td clas=>購入者</td>
@@ -20,7 +21,7 @@
           <td><%= @order.payment_method_i18n %></td>
         </tr>
         <tr>
-          <td>ステータス</td>
+          <td>注文ステータス</td>
           <td>
              <%= form_with(model: @order, url: admin_order_path, method: :patch, local: true) do |f| %>
               <%= f.select :status,Order.statuses_i18n.keys.map{|k| [I18n.t("enums.order.status.#{k}"), k]} %>
@@ -31,8 +32,8 @@
         </tr>
       </tbody>
 </table>
-<div class="container" >
- <div class= "row" >
+
+ <div class= "row mt-5" >
       <div class= "col-9">
         <table class="table ml-5">
           <thead>
@@ -48,12 +49,12 @@
             <% @order_details.each do |order_detail| %>
                 <tr>
                   <td><%= Item.find(order_detail.item_id).name %></td>
-                  <td><%= Item.find(order_detail.item_id).price*1.1 %></td>
+                  <td><%= (Item.find(order_detail.item_id).price*1.1).to_i.to_s(:delimited) %></td>
                   <td><%= order_detail.amount %></td>
-                  <td><%= order_detail.amount * Item.find(order_detail.item_id).price %></td>
+                  <td><%= order_detail.amount * (Item.find(order_detail.item_id).price*1.1).to_i %></td>
                     <td>
-                      <%= form_with(model: OrderDetail, url: admin_order_detail_path, method: :patch, local: true) do |f| %>
-                  　　　<%= f.select :making_status,OrderDetail.making_statuses_i18n.keys.map{|k| [I18n.t("enums.order_detail.making_status.#{k}"),k]} %>
+                      <%= form_with(model: order_detail, url: admin_order_detail_path, method: :patch, local: true) do |f| %>
+                  　　　<%= f.select :making_status,@order_details.making_statuses_i18n.keys.map{|k| [I18n.t("enums.order_detail.making_status.#{k}"),k]} %>
                   　　　<%= f.submit "更新",class:"btn btn-success" %>
                 　　　　　<% end %>
                 　　　</td>
@@ -63,7 +64,7 @@
         </table>
       </div>
     <div class= "col-3">
-      <table class="table pl-2">
+      <table class="table ml-5">
          <tbody>
            <tr class="table-head" style="background-color:#F5F5F5;">
             <td>商品合計</td>

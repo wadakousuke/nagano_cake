@@ -22,9 +22,9 @@
         <tbody>
          <% @cart_items.each do |cart_item| %>
           <tr>
-            <td><%= image_tag cart_item.item.item_image, style:"height:80px; width:80px",class:"mr-3" %><%= cart_item.item.name %></td>
+            <td><%= image_tag cart_item.item.item_image, style:"height:100px; width:100px",class:"mr-3" %><%= cart_item.item.name %></td>
             <td><%= cart_item.item.with_tax_price %></td>
-            <td> <%= form_with model: @cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
+            <td> <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
                  <%= f.select :amount, *[1..20] %>
                  <%= f.submit '変更', class:"btn-lg btn-success ml-5" %>
                  <% end %>
